@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply m-0 bg-brand-muted font-sans text-brand-text antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display text-brand-title;
+  }
+
+  a {
+    @apply text-inherit no-underline;
+  }
+}
+
+@layer components {
+  .site-shell {
+    @apply overflow-x-hidden bg-brand-muted bg-brand-radial;
+  }
+
+  .section-wrap {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10;
+  }
+
+  .section-title {
+    @apply font-display text-4xl leading-tight text-brand-title sm:text-5xl;
+  }
+
+  .eyebrow {
+    @apply mb-3 inline-block text-sm font-bold uppercase tracking-[0.08em] text-brand-primary;
+  }
+
+  .cta-btn {
+    @apply inline-flex items-center justify-center rounded-sm bg-brand-primary px-8 py-4 text-sm font-bold uppercase tracking-wide text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#1b4028];
+  }
+
+  .hero-swiper .swiper-button-prev,
+  .hero-swiper .swiper-button-next {
+    @apply h-11 w-11 rounded-full border border-white/25 bg-white/5 text-white transition hover:bg-white/20;
+  }
+
+  .hero-swiper .swiper-button-prev::after,
+  .hero-swiper .swiper-button-next::after {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .hero-swiper .swiper-pagination-bullet {
+    @apply h-2.5 w-2.5 bg-white/60 opacity-100;
+  }
+
+  .hero-swiper .swiper-pagination-bullet-active {
+    @apply bg-brand-gold;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
