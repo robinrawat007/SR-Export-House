@@ -36,15 +36,18 @@ export function Footer() {
           {/* Brand column */}
           <div>
             <Link to="/" aria-label="S.R Export House home">
-              {/* Use original logo with specific filter for dark bg */}
               <img
                 src="/images/logo.webp"
                 alt="S.R Export House"
                 width={212}
                 height={72}
-                className="h-auto w-[180px] brightness-0 invert"
+                className="h-auto w-[180px]"
+                style={{ filter: 'brightness(0) saturate(100%) invert(1)' }}
                 loading="lazy"
+                onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
               />
+              {/* Text fallback if image fails */}
+              <span className="sr-only">S.R Export House</span>
             </Link>
             <p className="mt-5 text-sm leading-relaxed text-white/60 sm:text-base">
               {companyInfo.tagline}

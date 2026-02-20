@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowRight, Search, SlidersHorizontal } from 'lucide-react'
+import { Search, SlidersHorizontal } from 'lucide-react'
 import { Reveal } from '../components/Reveal'
 import { SectionHeading } from '../components/SectionHeading'
 import { products, type ProductCategory } from '../data/siteData'
@@ -137,7 +137,8 @@ export function ProductsPage() {
                       style={{ boxShadow: 'var(--shadow-card)' }}
                       whileHover={{ y: -6, boxShadow: 'var(--shadow-card-hover)' }}
                     >
-                      <Link to={`/products/${product.slug}`} className="block overflow-hidden">
+                      <Link to={`/products/${product.slug}`} className="block">
+                        {/* Image container with hover overlay */}
                         <div className="relative overflow-hidden">
                           <img
                             src={product.image}
@@ -147,24 +148,22 @@ export function ProductsPage() {
                             width={500}
                             height={500}
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
+                          {/* Hover reveal overlay */}
+                          <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/85 via-black/30 to-transparent p-4 opacity-0 transition-all duration-400 group-hover:opacity-100">
+                            <p className="translate-y-3 text-xs leading-relaxed text-white/90 transition-transform duration-300 group-hover:translate-y-0 line-clamp-3">
+                              {product.shortDescription}
+                            </p>
+                            <span className="mt-2 inline-flex translate-y-3 items-center gap-1 text-xs font-bold uppercase tracking-widest text-brand-gold transition-transform duration-300 group-hover:translate-y-0">
+                              View Details →
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="p-5">
+                          <span className="badge-green">{product.category}</span>
+                          <h3 className="mt-3 font-display text-2xl leading-tight sm:text-3xl">{product.name}</h3>
                         </div>
                       </Link>
-
-                      <div className="p-5">
-                        <span className="badge-green">{product.category}</span>
-                        <h3 className="mt-3 font-display text-2xl leading-tight sm:text-3xl">{product.name}</h3>
-                        <p className="mt-2 text-sm leading-relaxed text-brand-text sm:text-base">
-                          {product.shortDescription}
-                        </p>
-                        <Link
-                          to={`/products/${product.slug}`}
-                          className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold uppercase tracking-wide text-brand-primary transition hover:text-brand-primary-dark"
-                        >
-                          View Details
-                          <ArrowRight className="h-3.5 w-3.5" />
-                        </Link>
-                      </div>
                     </motion.article>
                   ))}
                 </motion.div>

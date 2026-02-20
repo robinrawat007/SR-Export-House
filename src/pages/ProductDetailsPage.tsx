@@ -1,3 +1,4 @@
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { Reveal } from '../components/Reveal'
 import { products } from '../data/siteData'
@@ -30,38 +31,37 @@ export function ProductDetailsPage() {
       <section className="relative overflow-hidden bg-brand-dark py-20 text-white sm:py-24">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(251,188,52,0.22),transparent_30%),radial-gradient(circle_at_80%_0%,rgba(35,81,48,0.6),transparent_35%)]" />
         <div className="section-wrap relative">
-          <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-            <Reveal>
-              <p className="eyebrow text-brand-gold">Product Details</p>
-              <h1 className="max-w-4xl font-display text-5xl leading-tight text-white sm:text-6xl">{product.name}</h1>
-              <p className="mt-6 max-w-3xl text-xl leading-relaxed text-white/85 sm:text-2xl">{product.shortDescription}</p>
-            </Reveal>
-
-            {/* Quick Navigation */}
-            <Reveal delay={0.1}>
-              <div className="flex items-center gap-4 border-l border-white/10 pl-6 h-fit">
-                <Link
-                  to={`/products/${prevProduct.slug}`}
-                  className="group flex flex-col items-start gap-1 transition hover:text-brand-gold"
-                >
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-white/40 group-hover:text-brand-gold/60">Previous</span>
-                  <span className="text-sm font-semibold">{prevProduct.name}</span>
-                </Link>
-                <div className="h-8 w-px bg-white/10" />
-                <Link
-                  to={`/products/${nextProduct.slug}`}
-                  className="group flex flex-col items-end gap-1 text-right transition hover:text-brand-gold"
-                >
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-white/40 group-hover:text-brand-gold/60">Next</span>
-                  <span className="text-sm font-semibold">{nextProduct.name}</span>
-                </Link>
-              </div>
-            </Reveal>
-          </div>
+          <Reveal>
+            <p className="eyebrow text-brand-gold">Product Details</p>
+            <h1 className="max-w-4xl font-display text-5xl leading-tight text-white sm:text-6xl">{product.name}</h1>
+            <p className="mt-6 max-w-3xl text-xl leading-relaxed text-white/85 sm:text-2xl">{product.shortDescription}</p>
+          </Reveal>
         </div>
       </section>
 
-      <section className="py-16 sm:py-20">
+      <section className="relative py-16 sm:py-20">
+        {/* Side Navigation Arrows */}
+        <Link
+          to={`/products/${prevProduct.slug}`}
+          aria-label={`Previous product: ${prevProduct.name}`}
+          className="group absolute left-2 top-1/2 z-10 -translate-y-1/2 hidden lg:flex flex-col items-center gap-2"
+        >
+          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-white shadow-card transition-all duration-300 group-hover:-translate-x-1 group-hover:border-brand-primary/30 group-hover:shadow-card-hover">
+            <ChevronLeft className="h-5 w-5 text-brand-primary" />
+          </div>
+          <span className="max-w-[80px] text-center text-[10px] font-bold uppercase tracking-widest text-brand-text/50 group-hover:text-brand-primary">{prevProduct.name}</span>
+        </Link>
+        <Link
+          to={`/products/${nextProduct.slug}`}
+          aria-label={`Next product: ${nextProduct.name}`}
+          className="group absolute right-2 top-1/2 z-10 -translate-y-1/2 hidden lg:flex flex-col items-center gap-2"
+        >
+          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-white shadow-card transition-all duration-300 group-hover:translate-x-1 group-hover:border-brand-primary/30 group-hover:shadow-card-hover">
+            <ChevronRight className="h-5 w-5 text-brand-primary" />
+          </div>
+          <span className="max-w-[80px] text-center text-[10px] font-bold uppercase tracking-widest text-brand-text/50 group-hover:text-brand-primary">{nextProduct.name}</span>
+        </Link>
+
         <div className="section-wrap grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>
             <div className="group relative overflow-hidden rounded-2xl shadow-card">
@@ -106,6 +106,16 @@ export function ProductDetailsPage() {
                 Back to Products
               </Link>
             </div>
+
+            {/* Mobile Prev/Next */}
+            <div className="mt-8 flex items-center justify-between border-t border-black/8 pt-6 lg:hidden">
+              <Link to={`/products/${prevProduct.slug}`} className="group flex items-center gap-2 text-sm font-semibold text-brand-title transition hover:text-brand-primary">
+                <ChevronLeft className="h-4 w-4" /> {prevProduct.name}
+              </Link>
+              <Link to={`/products/${nextProduct.slug}`} className="group flex items-center gap-2 text-sm font-semibold text-brand-title transition hover:text-brand-primary">
+                {nextProduct.name} <ChevronRight className="h-4 w-4" />
+              </Link>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -138,9 +148,9 @@ export function ProductDetailsPage() {
                         width={400}
                         height={400}
                       />
-                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-5 text-white">
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-brand-gold/90">{item.category}</p>
-                        <h3 className="mt-1 font-display text-2xl">{item.name}</h3>
+                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 text-white">
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-brand-gold" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}>{item.category}</p>
+                        <h3 className="mt-1 font-display text-2xl" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}>{item.name}</h3>
                       </div>
                     </div>
                   </Link>

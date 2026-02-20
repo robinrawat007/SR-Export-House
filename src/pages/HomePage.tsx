@@ -52,21 +52,21 @@ function TickerBand() {
   const items = [...tickerProducts, ...tickerProducts]
 
   return (
-    <div className="group relative overflow-hidden border-y border-white/10 bg-brand-primary py-4" aria-hidden>
+    <div className="group relative overflow-hidden border-y border-white/10 bg-brand-primary py-2.5" aria-label="Product categories">
       {/* Subtle overlay gradients for fade edges */}
-      <div className="absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-brand-primary to-transparent" />
-      <div className="absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-brand-primary to-transparent" />
+      <div className="absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-brand-primary to-transparent pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-brand-primary to-transparent pointer-events-none" />
 
       <div className="ticker-track flex items-center whitespace-nowrap">
         {items.map((product, i) => (
-          <div key={`${product.slug}-${i}`} className="mx-10 flex items-center gap-4 shrink-0">
-            <div className="h-10 w-10 overflow-hidden rounded-full border border-white/20 bg-white/10">
-              <img src={product.image} alt="" className="h-full w-full object-cover" />
+          <div key={`${product.slug}-${i}`} className="mx-8 flex items-center gap-3 shrink-0">
+            <div className="h-8 w-8 overflow-hidden rounded-full border border-white/20 bg-white/10 shrink-0">
+              <img src={product.image} alt="" className="h-full w-full object-cover" loading="lazy" />
             </div>
-            <span className="text-xs font-bold uppercase tracking-[0.15em] text-white/90">
+            <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/90">
               {product.name}
             </span>
-            <div className="h-1.5 w-1.5 rounded-full bg-brand-gold/60 mx-2" />
+            <div className="h-1 w-1 rounded-full bg-brand-gold/60" />
           </div>
         ))}
       </div>

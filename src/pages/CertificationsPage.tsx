@@ -1,40 +1,30 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { BadgeCheck, FileCheck2, Globe2, ShieldCheck, X } from 'lucide-react'
+import { BadgeCheck, CheckCircle2, FileCheck2, Globe2, ShieldCheck, X, ZoomIn } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Reveal } from '../components/Reveal'
-import { SectionHeading } from '../components/SectionHeading'
 import { certificateItems } from '../data/siteData'
 import { usePageMeta } from '../hooks/usePageMeta'
 
 const complianceHighlights = [
-  {
-    title: 'Verified Documentation',
-    description: 'Every certificate is maintained with current records for transparent buyer verification.',
-    icon: FileCheck2,
-  },
-  {
-    title: 'Regulatory Alignment',
-    description: 'Our operations align with required national export and food safety compliance frameworks.',
-    icon: BadgeCheck,
-  },
-  {
-    title: 'Quality Assurance',
-    description: 'Strict quality checks and handling standards are followed before packing and dispatch.',
-    icon: ShieldCheck,
-  },
-  {
-    title: 'Global Shipment Readiness',
-    description: 'Our compliance setup helps us execute international shipments with confidence and consistency.',
-    icon: Globe2,
-  },
+  { title: 'APEDA Registered', description: 'Registered with Agricultural and Processed Food Products Export Development Authority for agro exports.', icon: BadgeCheck, color: 'text-emerald-600', bg: 'bg-emerald-50' },
+  { title: 'Quality Verified', description: 'Every batch undergoes strict quality inspection before packing and international dispatch.', icon: FileCheck2, color: 'text-brand-primary', bg: 'bg-brand-muted' },
+  { title: 'Regulatory Aligned', description: 'Operations aligned with national food safety and export compliance frameworks.', icon: ShieldCheck, color: 'text-blue-600', bg: 'bg-blue-50' },
+  { title: 'Global Ready', description: 'Full documentation and certifications for seamless international shipment execution.', icon: Globe2, color: 'text-purple-600', bg: 'bg-purple-50' },
+]
+
+const trustPoints = [
+  'All certificates maintained with up-to-date valid records',
+  'Buyer verification available on request',
+  'Third-party quality checks before every shipment',
+  'Transparent documentation for customs clearance',
+  'Consistent compliance across all product categories',
 ]
 
 export function CertificationsPage() {
   usePageMeta({
     title: 'Our Certifications — S.R Export House',
-    description:
-      'Explore S.R Export House certifications and compliance standards that support safe, reliable, and transparent global exports.',
+    description: 'Explore S.R Export House certifications and compliance standards that support safe, reliable, and transparent global exports.',
     image: '/images/certificates/certificate-1.jpg',
   })
 
@@ -43,62 +33,76 @@ export function CertificationsPage() {
 
   useEffect(() => {
     if (activeCertificateIndex === null) return
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setActiveCertificateIndex(null)
-    }
+    const onKeyDown = (e: KeyboardEvent) => { if (e.key === 'Escape') setActiveCertificateIndex(null) }
     document.body.style.overflow = 'hidden'
     window.addEventListener('keydown', onKeyDown)
-    return () => {
-      document.body.style.overflow = ''
-      window.removeEventListener('keydown', onKeyDown)
-    }
+    return () => { document.body.style.overflow = ''; window.removeEventListener('keydown', onKeyDown) }
   }, [activeCertificateIndex])
 
   return (
     <>
-      {/* ══ HERO ═══════════════════════════════════════════════ */}
-      <section className="relative overflow-hidden py-20 text-white sm:py-24">
-        <img
-          src="/images/farm-field.webp"
-          alt=""
-          aria-hidden
-          className="absolute inset-0 h-full w-full object-cover"
-          width={1500}
-          height={500}
-          loading="eager"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/75" />
-        <div className="pointer-events-none absolute inset-0 bg-grain opacity-30" aria-hidden />
+      {/* HERO */}
+      <section className="relative overflow-hidden py-0 text-white">
+        <img src="/images/farm-field.webp" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" loading="eager" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/88 via-black/70 to-black/50" />
+        <div className="pointer-events-none absolute inset-0 bg-grain opacity-20" aria-hidden />
 
-        <div className="section-wrap relative text-center">
-          <Reveal>
-            <span className="eyebrow text-brand-gold">Our Certifications</span>
+        {/* Decorative rings */}
+        <div className="pointer-events-none absolute right-[8%] top-1/2 -translate-y-1/2 h-60 w-60 rounded-full border border-brand-gold/20" aria-hidden />
+        <div className="pointer-events-none absolute right-[11%] top-1/2 -translate-y-1/2 h-40 w-40 rounded-full border-2 border-brand-gold/30" aria-hidden />
+
+        <div className="section-wrap relative py-28 sm:py-36">
+          <Reveal className="max-w-3xl">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-gold/40 bg-brand-gold/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-brand-gold backdrop-blur-sm">
+              <ShieldCheck className="h-3 w-3" /> Certified & Compliant
+            </div>
             <h1 className="font-display text-5xl leading-tight text-white sm:text-6xl lg:text-7xl">
-              Our Certifications
+              Our<br />
+              <span className="bg-gradient-to-r from-brand-gold to-yellow-300 bg-clip-text text-transparent">Certifications</span>
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/70 sm:text-xl">
-              Certified, compliant, and committed to transparent global trade standards.
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/75 sm:text-xl">
+              Certified, compliant, and committed to transparent global trade standards. Every document reflects our dedication to quality.
             </p>
-            {/* Breadcrumb */}
-            <p className="mt-5 flex items-center justify-center gap-3 text-sm font-semibold uppercase tracking-wide text-white/60">
+            <nav className="mt-5 flex items-center gap-3 text-sm font-semibold uppercase tracking-wide text-white/60">
               <Link to="/" className="transition hover:text-brand-gold">Home</Link>
               <span>/</span>
               <span className="text-white/85">Our Certifications</span>
-            </p>
+            </nav>
           </Reveal>
         </div>
       </section>
 
-      {/* ══ CERTIFICATE CARDS ══════════════════════════════════ */}
+      {/* COMPLIANCE BADGES */}
+      <section className="border-b border-black/8 bg-white py-10">
+        <div className="section-wrap grid grid-cols-2 gap-4 lg:grid-cols-4">
+          {complianceHighlights.map((item, i) => (
+            <motion.div key={item.title}
+              className="group flex flex-col gap-3 rounded-2xl border border-black/6 bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover"
+              style={{ boxShadow: 'var(--shadow-card)' }}
+              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
+              <span className={`flex h-10 w-10 items-center justify-center rounded-xl ${item.bg} ${item.color}`}>
+                <item.icon className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="text-sm font-bold text-brand-title">{item.title}</p>
+                <p className="mt-1 text-xs leading-relaxed text-brand-text">{item.description}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* CERTIFICATE CARDS */}
       <section className="py-16 sm:py-20">
         <div className="section-wrap">
           <Reveal>
-            <SectionHeading
-              title="Certified for Trusted Global Trade"
-              description="Our certifications reflect our commitment to quality control, regulatory compliance, and transparent export operations."
-              center
-              className="mx-auto max-w-4xl"
-            />
+            <span className="eyebrow">Our Documents</span>
+            <h2 className="mt-2 font-display text-4xl leading-tight text-brand-title sm:text-5xl">
+              Certified for Trusted<br />Global Trade
+            </h2>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-brand-text sm:text-lg">
+              Click any certificate to view it in full detail. All documents are maintained and updated regularly.
+            </p>
           </Reveal>
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
@@ -109,42 +113,38 @@ export function CertificationsPage() {
                 initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.1 }}
-                transition={{ delay: index * 0.07, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              >
+                transition={{ delay: index * 0.07, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}>
                 <button
                   type="button"
                   onClick={() => setActiveCertificateIndex(index)}
-                  className="group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-black/8 bg-white text-left transition-all duration-300 hover:-translate-y-1.5"
+                  className="group relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-black/8 bg-white text-left transition-all duration-300 hover:-translate-y-2"
                   style={{ boxShadow: 'var(--shadow-card)' }}
-                >
-                  {/* Shimmer border on hover */}
-                  <div className="relative overflow-hidden border-b border-black/8 bg-brand-muted/60">
-                    <img
-                      src={certificate.image}
-                      alt={certificate.title}
-                      className="h-72 w-full object-contain transition duration-600 group-hover:scale-[1.03] sm:h-[340px]"
-                      width={768}
-                      height={1085}
-                      loading="lazy"
-                    />
-                    {/* Gold shimmer on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-brand-gold/0 via-brand-gold/10 to-brand-gold/0 opacity-0 transition-opacity duration-400 group-hover:opacity-100" />
+                  aria-label={`View certificate: ${certificate.title}`}>
+                  {/* Gold top bar */}
+                  <div className="h-0.5 w-full" style={{ background: 'linear-gradient(90deg, #235130, #fbbc34)' }} />
 
-                    {/* Badge overlay */}
-                    <div className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/90 text-white opacity-0 shadow-glow-sm transition-opacity duration-300 group-hover:opacity-100">
-                      <ShieldCheck className="h-4 w-4" />
+                  <div className="relative overflow-hidden border-b border-black/6 bg-brand-muted/50">
+                    <img src={certificate.image} alt={certificate.title}
+                      className="h-72 w-full object-contain transition duration-500 group-hover:scale-[1.04] sm:h-[340px]"
+                      width={768} height={1085} loading="lazy" />
+
+                    {/* Hover overlay with zoom icon */}
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover:bg-black/20">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/0 text-white opacity-0 shadow-lg transition-all duration-300 group-hover:bg-brand-primary/90 group-hover:opacity-100">
+                        <ZoomIn className="h-5 w-5" />
+                      </div>
+                    </div>
+
+                    {/* Verified badge */}
+                    <div className="absolute right-3 top-3 flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-brand-primary shadow-soft opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <CheckCircle2 className="h-3 w-3" /> Verified
                     </div>
                   </div>
-
-                  {/* Gold top accent on hover */}
-                  <div
-                    className="h-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                    style={{ background: 'linear-gradient(90deg, #235130, #fbbc34)' }}
-                  />
 
                   <div className="flex-1 p-5">
                     <h3 className="font-display text-2xl leading-tight sm:text-3xl">{certificate.title}</h3>
                     <p className="mt-2 text-xs font-bold uppercase tracking-widest text-brand-primary">{certificate.issuer}</p>
+                    <p className="mt-3 text-xs text-brand-text/60 underline underline-offset-2 group-hover:text-brand-primary">Click to view full certificate →</p>
                   </div>
                 </button>
               </motion.div>
@@ -153,56 +153,48 @@ export function CertificationsPage() {
         </div>
       </section>
 
-      {/* ══ COMPLIANCE CARDS ═══════════════════════════════════ */}
-      <section className="pb-20 sm:pb-24">
-        <div className="section-wrap">
+      {/* TRUST POINTS BANNER */}
+      <section className="relative overflow-hidden py-16 sm:py-20">
+        <img src="/images/quality-rice.webp" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+        <div className="absolute inset-0 bg-brand-primary/90" />
+
+        <div className="section-wrap relative grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <Reveal>
-            <SectionHeading
-              title="Compliance Framework"
-              description="Beyond certificates, our process standards protect product integrity and buyer confidence."
-            />
+            <span className="eyebrow text-brand-gold">Why Trust Us</span>
+            <h2 className="mt-2 font-display text-4xl leading-tight text-white sm:text-5xl">
+              Transparency in Every Export
+            </h2>
+            <p className="mt-5 text-base leading-relaxed text-white/75 sm:text-lg">
+              Our certifications aren't just documents — they represent a verified commitment to quality, consistency, and honest trade.
+            </p>
+            <Link to="/contact-us"
+              className="mt-8 inline-flex items-center gap-2 rounded-lg border border-brand-gold/50 px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-brand-gold transition hover:bg-brand-gold hover:text-brand-dark">
+              Request Documentation
+            </Link>
           </Reveal>
 
-          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {complianceHighlights.map((step, index) => (
-              <motion.article
-                key={step.title}
-                className="group relative h-full overflow-hidden rounded-2xl bg-white p-6"
-                style={{ boxShadow: 'var(--shadow-card)' }}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ delay: index * 0.07, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -5, boxShadow: 'var(--shadow-card-hover)' }}
-              >
-                {/* Gradient top bar */}
-                <div
-                  className="absolute inset-x-0 top-0 h-0.5"
-                  style={{ background: 'linear-gradient(90deg, #235130, #fbbc34)' }}
-                />
-
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-primary/8 text-brand-primary transition-colors duration-300 group-hover:bg-brand-primary group-hover:text-white group-hover:shadow-glow-sm">
-                  <step.icon className="h-6 w-6" />
-                </div>
-
-                <h3 className="font-display text-2xl leading-tight sm:text-3xl">{step.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-brand-text sm:text-base">{step.description}</p>
-              </motion.article>
-            ))}
-          </div>
+          <Reveal delay={0.1}>
+            <ul className="grid gap-3">
+              {trustPoints.map((point, i) => (
+                <motion.li key={point}
+                  className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/8 px-5 py-4 text-sm font-medium text-white/90 backdrop-blur-sm"
+                  initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }}>
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-gold" />
+                  {point}
+                </motion.li>
+              ))}
+            </ul>
+          </Reveal>
         </div>
       </section>
 
-      {/* ══ CERTIFICATE MODAL ══════════════════════════════════ */}
+      {/* CERTIFICATE MODAL */}
       <AnimatePresence>
         {activeCertificate ? (
           <motion.div
-            className="fixed inset-0 z-[70] flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setActiveCertificateIndex(null)}
-          >
+            className="fixed inset-0 z-[70] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            onClick={() => setActiveCertificateIndex(null)}>
             <motion.div
               initial={{ opacity: 0, y: 20, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -210,36 +202,25 @@ export function CertificationsPage() {
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               className="relative max-h-[90vh] w-[min(95vw,920px)] overflow-hidden rounded-2xl bg-white"
               style={{ boxShadow: '0 40px 120px rgba(0,0,0,0.5)' }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                type="button"
-                aria-label="Close certificate preview"
+              onClick={(e) => e.stopPropagation()}>
+              <button type="button" aria-label="Close certificate"
                 onClick={() => setActiveCertificateIndex(null)}
-                className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-brand-title shadow-soft transition hover:bg-brand-primary hover:text-white"
-              >
+                className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-brand-title shadow-soft transition hover:bg-brand-primary hover:text-white">
                 <X className="h-4 w-4" />
               </button>
-
-              {/* Gold top bar */}
-              <div
-                className="h-0.5"
-                style={{ background: 'linear-gradient(90deg, #235130, #fbbc34)' }}
-              />
-
+              <div className="h-0.5" style={{ background: 'linear-gradient(90deg, #235130, #fbbc34)' }} />
               <div className="max-h-[75vh] overflow-auto bg-brand-muted/40 p-4 sm:p-6">
-                <img
-                  src={activeCertificate.image}
-                  alt={activeCertificate.title}
-                  className="mx-auto h-auto w-full max-w-[720px] rounded-xl"
-                  width={768}
-                  height={1085}
-                />
+                <img src={activeCertificate.image} alt={activeCertificate.title}
+                  className="mx-auto h-auto w-full max-w-[720px] rounded-xl" width={768} height={1085} />
               </div>
-
-              <div className="border-t border-black/8 px-6 py-5">
-                <h2 className="font-display text-3xl leading-tight">{activeCertificate.title}</h2>
-                <p className="mt-1 text-xs font-bold uppercase tracking-widest text-brand-primary">{activeCertificate.issuer}</p>
+              <div className="border-t border-black/8 px-6 py-5 flex items-start justify-between gap-4">
+                <div>
+                  <h2 className="font-display text-3xl leading-tight">{activeCertificate.title}</h2>
+                  <p className="mt-1 text-xs font-bold uppercase tracking-widest text-brand-primary">{activeCertificate.issuer}</p>
+                </div>
+                <div className="shrink-0 flex items-center gap-1.5 rounded-full bg-brand-primary/8 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-brand-primary">
+                  <CheckCircle2 className="h-3 w-3" /> Verified
+                </div>
               </div>
             </motion.div>
           </motion.div>

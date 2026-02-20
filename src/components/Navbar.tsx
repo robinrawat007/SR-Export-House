@@ -131,7 +131,7 @@ export function Navbar() {
                     {item.children ? (
                       <div className="pointer-events-none invisible absolute left-0 top-full w-[340px] pt-4 opacity-0 transition-all duration-200 group-hover/nav:pointer-events-auto group-hover/nav:visible group-hover/nav:opacity-100">
 
-                        <div className="relative rounded-2xl border border-black/8 bg-white/98 p-3 shadow-[0_12px_40px_rgba(0,0,0,0.14)] backdrop-blur-xl">
+                        <div className="relative rounded-2xl border border-black/10 bg-white p-3 shadow-[0_16px_50px_rgba(0,0,0,0.18)]">
                           {/* Caret */}
                           <div className="absolute -top-1.5 left-7 h-3 w-3 rotate-45 border-l border-t border-black/8 bg-white" />
 
