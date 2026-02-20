@@ -148,9 +148,11 @@ export function ProductDetailsPage() {
                         width={400}
                         height={400}
                       />
-                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 text-white">
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-brand-gold" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}>{item.category}</p>
-                        <h3 className="mt-1 font-display text-2xl" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.6)' }}>{item.name}</h3>
+                      {/* Always-visible dark gradient that ensures text readability */}
+                      <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/95 via-black/60 to-transparent" />
+                      <div className="absolute inset-x-0 bottom-0 p-5 text-white">
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-brand-gold drop-shadow-[0_1px_4px_rgba(0,0,0,1)]">{item.category}</p>
+                        <h3 className="mt-1 font-display text-xl leading-tight drop-shadow-[0_1px_6px_rgba(0,0,0,1)]">{item.name}</h3>
                       </div>
                     </div>
                   </Link>

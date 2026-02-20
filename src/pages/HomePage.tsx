@@ -107,18 +107,18 @@ export function HomePage() {
           aria-hidden
         />
 
-        <div className="section-wrap relative">
-          <Swiper
-            modules={[Autoplay, Navigation, Pagination, A11y]}
-            className="hero-swiper"
-            navigation
-            pagination={{ clickable: true }}
-            speed={1000}
-            loop
-            autoplay={{ delay: 5000, disableOnInteraction: false }}
-          >
-            {heroSlides.map((slide) => (
-              <SwiperSlide key={slide.id}>
+        <Swiper
+          modules={[Autoplay, Navigation, Pagination, A11y]}
+          className="hero-swiper"
+          navigation
+          pagination={{ clickable: true }}
+          speed={1000}
+          loop
+          autoplay={{ delay: 5000, disableOnInteraction: false }}
+        >
+          {heroSlides.map((slide) => (
+            <SwiperSlide key={slide.id}>
+              <div className="section-wrap relative">
                 <div className="grid min-h-[560px] items-center gap-10 py-14 lg:grid-cols-2 lg:gap-14 lg:py-20">
                   <div className="max-w-2xl">
                     {/* Badge */}
@@ -186,10 +186,10 @@ export function HomePage() {
                     />
                   </motion.div>
                 </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </section>
 
       {/* ══ TICKER BAND ═══════════════════════════════════════ */}

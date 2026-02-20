@@ -3,7 +3,7 @@ import { ArrowRight, Award, Globe2, Heart, Leaf, PackageCheck, ShieldCheck, Star
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Reveal } from '../components/Reveal'
-import { aboutGallery, aboutPillars, exportImpactStats } from '../data/siteData'
+import { aboutPillars, exportImpactStats } from '../data/siteData'
 import { usePageMeta } from '../hooks/usePageMeta'
 
 const pillarIcons = [Target, Heart, ShieldCheck]
@@ -106,26 +106,6 @@ export function AboutPage() {
               </Link>
             </div>
           </Reveal>
-        </div>
-      </section>
-
-      {/* ══ ANIMATED STATS BAR ══════════════════════════════════ */}
-      <section className="border-y border-brand-primary/10 bg-brand-primary py-8">
-        <div className="section-wrap">
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-            {exportImpactStats.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                className="text-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-              >
-                <AnimatedStat value={stat.value} label={stat.label} light />
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -243,8 +223,8 @@ export function AboutPage() {
                   key={event.title}
                   type="button"
                   className={`group relative flex items-start gap-5 rounded-2xl border p-5 text-left transition-all duration-300 ${activeTimeline === index
-                      ? 'border-brand-primary bg-brand-primary text-white shadow-glow-sm'
-                      : 'border-black/8 bg-white hover:border-brand-primary/30 hover:shadow-card'
+                    ? 'border-brand-primary bg-brand-primary text-white shadow-glow-sm'
+                    : 'border-black/8 bg-white hover:border-brand-primary/30 hover:shadow-card'
                     }`}
                   onClick={() => setActiveTimeline(index)}
                 >
@@ -289,86 +269,48 @@ export function AboutPage() {
         </div>
       </section>
 
-      {/* ══ GALLERY MOSAIC ═══════════════════════════════════════ */}
-      <section className="bg-brand-dark py-20 sm:py-24">
-        <div className="section-wrap">
+      {/* ══ DARK STATS BANNER ═══════════════════════════════════ */}
+      <section className="relative overflow-hidden py-20 text-white sm:py-24">
+        <img
+          src="/images/product-spices.jpg"
+          alt=""
+          aria-hidden
+          className="absolute inset-0 h-full w-full object-cover"
+          width={1500}
+          height={1001}
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-black/75" />
+        <div className="pointer-events-none absolute inset-0 bg-grain opacity-30" aria-hidden />
+
+        <div className="section-wrap relative grid items-center gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
           <Reveal>
-            <span className="eyebrow text-brand-gold">Gallery</span>
-            <h2 className="mt-2 font-display text-4xl leading-tight text-white sm:text-5xl">
-              Our Products in Focus
+            <h2 className="font-display text-4xl leading-tight text-white sm:text-5xl lg:text-6xl">
+              Healthy Life With Fresh Products!
             </h2>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/65 sm:text-lg">
-              From rice paddies to global markets — each product carries our promise of quality.
+            <p className="mt-6 text-base leading-relaxed text-white/75 sm:text-lg">
+              We ensure every product meets stringent quality standards through rigorous testing, careful sourcing, and sustainable practices.
             </p>
-          </Reveal>
-
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {aboutGallery.slice(0, 6).map((image, index) => (
-              <motion.div
-                key={image.src}
-                className="group relative overflow-hidden rounded-2xl"
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ delay: index * 0.08, duration: 0.6 }}
-                style={{ gridRow: index === 0 || index === 5 ? 'span 1' : '' }}
-              >
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="h-72 w-full object-cover transition duration-700 group-hover:scale-110 sm:h-80"
-                  width={500}
-                  height={600}
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                <div className="absolute inset-x-0 bottom-0 translate-y-full p-5 transition-transform duration-300 group-hover:translate-y-0">
-                  <p className="text-sm font-bold uppercase tracking-widest text-brand-gold">{image.alt}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="mt-10 text-center">
-            <Link to="/our-products" className="inline-flex items-center gap-2 rounded-lg border border-white/20 px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-white backdrop-blur-sm transition hover:bg-white/10">
-              View All Products <ArrowRight className="h-4 w-4" />
+            <p className="mt-4 text-base leading-relaxed text-white/75 sm:text-lg">
+              We partner with dedicated farmers to deliver premium-quality spices, rice, and fresh produce globally.
+            </p>
+            <Link
+              to="/contact-us"
+              className="mt-8 inline-flex items-center gap-2 rounded-lg border border-brand-gold/50 px-6 py-3 text-sm font-bold uppercase tracking-wide text-brand-gold transition hover:bg-brand-gold hover:text-brand-dark"
+            >
+              Talk to Our Team <ArrowRight className="h-4 w-4" />
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ══ CTA BANNER ══════════════════════════════════════════ */}
-      <section className="relative overflow-hidden py-20 sm:py-24">
-        <img src="/images/product-spices.jpg" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
-        <div className="absolute inset-0 bg-black/78" />
-        <div className="pointer-events-none absolute inset-0 bg-grain opacity-25" aria-hidden />
-
-        <div className="section-wrap relative text-center">
-          <Reveal>
-            <span className="eyebrow text-brand-gold">Work With Us</span>
-            <h2 className="mt-2 font-display text-4xl leading-tight text-white sm:text-5xl lg:text-6xl">
-              Ready to Source Premium<br className="hidden sm:block" /> Agro Products?
-            </h2>
-            <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
-              Connect with our team for sourcing, pricing, certifications, and export requirements.
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <Link
-                to="/contact-us"
-                className="inline-flex items-center gap-2 rounded-lg bg-brand-gold px-8 py-4 text-sm font-bold uppercase tracking-wide text-brand-dark transition hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(251,188,52,0.5)]"
-              >
-                Talk to Our Team <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                to="/our-certifications"
-                className="inline-flex items-center gap-2 rounded-lg border border-white/25 px-8 py-4 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-white/10"
-              >
-                View Certifications
-              </Link>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2">
+              {exportImpactStats.map((stat) => (
+                <AnimatedStat key={stat.label} value={stat.value} label={stat.label} light />
+              ))}
             </div>
           </Reveal>
         </div>
       </section>
+
     </>
   )
 }

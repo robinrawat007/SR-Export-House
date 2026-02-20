@@ -167,10 +167,6 @@ export function CertificationsPage() {
             <p className="mt-5 text-base leading-relaxed text-white/75 sm:text-lg">
               Our certifications aren't just documents — they represent a verified commitment to quality, consistency, and honest trade.
             </p>
-            <Link to="/contact-us"
-              className="mt-8 inline-flex items-center gap-2 rounded-lg border border-brand-gold/50 px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-brand-gold transition hover:bg-brand-gold hover:text-brand-dark">
-              Request Documentation
-            </Link>
           </Reveal>
 
           <Reveal delay={0.1}>
