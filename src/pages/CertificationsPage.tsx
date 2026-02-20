@@ -1,7 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { BadgeCheck, CheckCircle2, FileCheck2, Globe2, ShieldCheck, X, ZoomIn } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { Reveal } from '../components/Reveal'
 import { certificateItems } from '../data/siteData'
 import { usePageMeta } from '../hooks/usePageMeta'
