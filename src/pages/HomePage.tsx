@@ -1,4 +1,7 @@
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { motion, useInView, useMotionValue, useSpring, animate } from 'framer-motion'
+import { ArrowRight, Globe, Leaf, Shield, Star, TrendingUp } from 'lucide-react'
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
@@ -6,56 +9,180 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { Reveal } from '../components/Reveal'
 import { SectionHeading } from '../components/SectionHeading'
-import { featureCards, heroSlides, missionCards, products, quickCards, trustStats } from '../data/siteData'
+import {
+  featureCards,
+  heroSlides,
+  missionCards,
+  products,
+  quickCards,
+  trustStats,
+} from '../data/siteData'
 import { usePageMeta } from '../hooks/usePageMeta'
+
+/* ─── Animated counter ──────────────────────────────── */
+function CountUp({ to, suffix = '' }: { to: number; suffix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null)
+  const inView = useInView(ref, { once: true, amount: 0.5 })
+  const motionVal = useMotionValue(0)
+  const springVal = useSpring(motionVal, { duration: 1800, bounce: 0 })
+
+  useEffect(() => {
+    if (inView) {
+      motionVal.set(0)
+      const controls = animate(motionVal, to, { duration: 1.8, ease: 'easeOut' })
+      return controls.stop
+    }
+  }, [inView, motionVal, to])
+
+  useEffect(() => {
+    return springVal.on('change', (v) => {
+      if (ref.current) ref.current.textContent = `${Math.round(v)}${suffix}`
+    })
+  }, [springVal, suffix])
+
+  return <span ref={ref}>0{suffix}</span>
+}
+
+/* ─── Ticker Band ───────────────────────────────────── */
+const tickerItems = [
+  '🌾 Premium Rice Export',
+  '🌶️ Aromatic Spices',
+  '🥭 Mango Pulp',
+  '🫙 Essential Oils',
+  '🌿 Psyllium Husk',
+  '☕ Premium Coffee',
+  '🏭 Wires & Cables',
+  '🪨 Tiles & Marbles',
+  '🌱 100% Quality',
+  '🌍 10+ Countries Served',
+  '⭐ 150+ Trusted Clients',
+]
+
+function TickerBand() {
+  const items = [...tickerItems, ...tickerItems]
+  return (
+    <div className="overflow-hidden border-y border-white/10 bg-brand-primary/90 py-3" aria-hidden>
+      <div className="ticker-track flex items-center">
+        {items.map((item, i) => (
+          <span key={i} className="mx-8 shrink-0 text-xs font-bold uppercase tracking-[0.12em] text-white/85">
+            {item}
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+const featureIcons = [Leaf, Globe, Shield, TrendingUp]
 
 export function HomePage() {
   usePageMeta({
-    title: 'Home - S.R Export House',
+    title: 'S.R Export House — Premium Agro Products Exporter, India',
     description:
-      'Premium agro exports from S.R Export House including rice, spices, mango pulp, dehydrated products, and more.',
+      'Premium agro exports from S.R Export House: rice, spices, mango pulp, essential oils, psyllium husk & more. Trusted by 150+ clients in 10+ countries.',
   })
 
   const topProducts = products.slice(0, 8)
 
   return (
     <>
-      <section className="relative bg-brand-dark py-12 sm:py-16">
+      {/* ══ HERO ══════════════════════════════════════════════ */}
+      <section className="relative overflow-hidden bg-brand-dark">
         <div className="absolute inset-0 bg-hero-overlay" aria-hidden />
+
+        {/* Animated grain overlay */}
+        <div className="pointer-events-none absolute inset-0 bg-grain opacity-60" aria-hidden />
+
+        {/* Decorative glow orbs */}
+        <div
+          className="pointer-events-none absolute -left-20 top-10 h-80 w-80 rounded-full opacity-20 blur-[80px]"
+          style={{ background: '#235130' }}
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -right-10 bottom-10 h-64 w-64 rounded-full opacity-15 blur-[60px]"
+          style={{ background: '#fbbc34' }}
+          aria-hidden
+        />
+
         <div className="section-wrap relative">
           <Swiper
             modules={[Autoplay, Navigation, Pagination, A11y]}
             className="hero-swiper"
             navigation
             pagination={{ clickable: true }}
-            speed={900}
+            speed={1000}
             loop
-            autoplay={{ delay: 4800, disableOnInteraction: false }}
+            autoplay={{ delay: 5000, disableOnInteraction: false }}
           >
             {heroSlides.map((slide) => (
               <SwiperSlide key={slide.id}>
-                <div className="grid min-h-[520px] items-center gap-10 py-10 lg:grid-cols-2 lg:gap-14 lg:py-14">
+                <div className="grid min-h-[560px] items-center gap-10 py-14 lg:grid-cols-2 lg:gap-14 lg:py-20">
                   <div className="max-w-2xl">
-                    <h1 className="font-display text-4xl leading-tight text-white sm:text-5xl">{slide.title}</h1>
-                    <p className="mt-5 max-w-xl text-xl leading-relaxed text-white/80 sm:text-2xl">{slide.description}</p>
-                    <Link
-                      to={slide.ctaTo}
-                      className="mt-8 inline-flex items-center rounded-sm bg-white px-7 py-3.5 text-sm font-bold uppercase tracking-wide text-black transition hover:-translate-y-0.5 hover:bg-brand-gold hover:text-brand-dark"
+                    {/* Badge */}
+                    <motion.div
+                      initial={{ opacity: 0, y: -12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.2 }}
+                      className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-gold/30 bg-brand-gold/10 px-4 py-1.5"
                     >
-                      {slide.ctaLabel}
-                    </Link>
+                      <Star className="h-3.5 w-3.5 fill-brand-gold text-brand-gold" />
+                      <span className="text-xs font-bold uppercase tracking-widest text-brand-gold">Est. 2024 · India</span>
+                    </motion.div>
+
+                    <motion.h1
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                      className="font-display text-4xl leading-tight text-white sm:text-5xl lg:text-6xl"
+                    >
+                      {slide.title}
+                    </motion.h1>
+
+                    <motion.p
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.7, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                      className="mt-5 max-w-xl text-lg leading-relaxed text-white/75 sm:text-xl"
+                    >
+                      {slide.description}
+                    </motion.p>
+
+                    <motion.div
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                      className="mt-8 flex flex-wrap items-center gap-4"
+                    >
+                      <Link to={slide.ctaTo} className="cta-btn-gold">
+                        {slide.ctaLabel}
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                      <Link
+                        to="/our-products"
+                        className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-white/75 transition hover:text-white"
+                      >
+                        View All Products
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </motion.div>
                   </div>
 
-                  <div className="mx-auto max-w-xl lg:ml-auto">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                    className="mx-auto max-w-xl lg:ml-auto"
+                  >
                     <img
                       src={slide.image}
                       alt={slide.title}
-                      className="w-full object-contain drop-shadow-[0_35px_35px_rgba(0,0,0,0.45)]"
+                      className="w-full object-contain drop-shadow-[0_35px_55px_rgba(0,0,0,0.55)]"
                       width={900}
                       height={900}
                       loading="eager"
                     />
-                  </div>
+                  </motion.div>
                 </div>
               </SwiperSlide>
             ))}
@@ -63,33 +190,46 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-20">
+      {/* ══ TICKER BAND ═══════════════════════════════════════ */}
+      <TickerBand />
+
+      {/* ══ WELCOME ═══════════════════════════════════════════ */}
+      <section className="py-20 sm:py-24">
         <div className="section-wrap grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>
             <SectionHeading
               eyebrow="Welcome to S.R Export House"
               title="Welcome to S.R. Export House"
-              description="A family-run export business started in the memory of our beloved Grandfather, Late Shri Sahaj Ram. We are dedicated to providing high-quality agro products to global markets. We leverage our family's agricultural heritage and strong local connections to source fresh, organic products from local farmers."
+              description="A family-run export business started in the memory of our beloved Grandfather, Late Shri Sahaj Ram. We are dedicated to providing high-quality agro products to global markets."
             />
-            <Link to="/about-us" className="cta-btn mt-9">
-              View More
+            <p className="mt-5 text-base leading-relaxed text-brand-text sm:text-lg">
+              We leverage our family's agricultural heritage and strong local connections to source fresh, organic
+              products from trusted farmers.
+            </p>
+            <Link to="/about-us" className="cta-btn mt-8">
+              Learn More About Us
             </Link>
           </Reveal>
 
-          <Reveal delay={0.08}>
-            <img
-              src="/images/welcome-rice.webp"
-              alt="Wooden spoon filled with rice grains"
-              className="w-full rounded-sm object-cover shadow-soft"
-              loading="lazy"
-              width={1024}
-              height={575}
-            />
+          <Reveal delay={0.08} direction="right">
+            <div className="group relative overflow-hidden rounded-2xl shadow-card">
+              <img
+                src="/images/welcome-rice.webp"
+                alt="Wooden spoon filled with premium rice grains"
+                className="w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+                loading="lazy"
+                width={1024}
+                height={575}
+              />
+              {/* Overlay shimmer on hover */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-brand-primary/10 via-transparent to-brand-gold/10 opacity-0 transition duration-500 group-hover:opacity-100" />
+            </div>
           </Reveal>
         </div>
       </section>
 
-      <section className="pb-10 pt-4 sm:pb-14">
+      {/* ══ QUICK CATEGORY CARDS ══════════════════════════════ */}
+      <section className="pb-12 pt-4 sm:pb-16">
         <div className="section-wrap">
           <Reveal>
             <SectionHeading
@@ -103,107 +243,164 @@ export function HomePage() {
 
           <Reveal className="mt-12" once>
             <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-              {quickCards.map((card) => (
-                <article key={card.title} className="group relative isolate min-h-[430px] overflow-hidden rounded-sm">
+              {quickCards.map((card, i) => (
+                <motion.article
+                  key={card.title}
+                  className="group relative isolate min-h-[440px] overflow-hidden rounded-2xl"
+                  initial={{ opacity: 0, y: 32 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={{ delay: i * 0.07, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                >
                   <img
                     src={card.image}
                     alt={card.title}
                     loading="lazy"
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                    className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-108"
                     width={600}
                     height={800}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 p-7 text-white">
-                    <h3 className="font-display text-4xl text-white">{card.title}</h3>
-                    <Link
-                      to={card.to}
-                      className="mt-5 inline-flex border-b border-white/80 pb-1 text-sm font-bold uppercase tracking-wide transition hover:text-brand-gold"
-                    >
-                      View More
-                    </Link>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+
+                  {/* Slide-up info on hover */}
+                  <div className="absolute inset-x-0 bottom-0 p-6 text-white transition-transform duration-500">
+                    <h3 className="font-display text-3xl text-white sm:text-4xl">{card.title}</h3>
+                    <div className="mt-4 flex items-center gap-3 opacity-0 transition-all duration-400 group-hover:opacity-100">
+                      <Link
+                        to={card.to}
+                        className="inline-flex items-center gap-2 rounded-lg bg-brand-gold px-4 py-2 text-xs font-bold uppercase tracking-wide text-brand-dark"
+                      >
+                        View More
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </Link>
+                    </div>
                   </div>
-                </article>
+                </motion.article>
               ))}
             </div>
           </Reveal>
         </div>
       </section>
 
-      <section className="pb-16 pt-6 sm:pb-20">
+      {/* ══ QUALITY / STATS ═══════════════════════════════════ */}
+      <section className="pb-20 pt-8 sm:pb-24">
         <div className="section-wrap grid items-start gap-12 lg:grid-cols-[1fr_1.08fr] lg:gap-16">
-          <Reveal>
-            <img
-              src="/images/quality-rice.webp"
-              alt="Rice grains in bowl"
-              loading="lazy"
-              className="w-full rounded-sm object-cover shadow-soft"
-              width={717}
-              height={717}
-            />
+          <Reveal direction="left">
+            <div className="group relative overflow-hidden rounded-2xl shadow-card">
+              <img
+                src="/images/quality-rice.webp"
+                alt="Premium rice grains in bowl"
+                loading="lazy"
+                className="w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+                width={717}
+                height={717}
+              />
+            </div>
           </Reveal>
+
           <Reveal delay={0.05}>
-            <h2 className="font-display text-4xl leading-tight text-brand-title sm:text-[3.1rem]">
-              S.R. Export House: Delivering Quality Agro Products Worldwide with Integrity, food hygiene and safety.
+            <h2 className="font-display text-4xl leading-tight text-brand-title sm:text-5xl">
+              S.R. Export House: Delivering Quality Agro Products Worldwide with Integrity & Safety.
             </h2>
-            <div className="mt-8 grid gap-8 sm:grid-cols-2">
+
+            <div className="mt-10 grid gap-8 sm:grid-cols-2">
               {trustStats.map((stat) => (
-                <div key={stat.label}>
-                  <p className="font-display text-7xl text-brand-primary">{stat.value}</p>
-                  <p className="mt-1 font-display text-[2rem] text-brand-title">{stat.label}</p>
+                <div key={stat.label} className="relative pl-4">
+                  <div
+                    className="absolute inset-y-0 left-0 w-1 rounded-full"
+                    style={{ background: 'linear-gradient(180deg, #235130, #fbbc34)' }}
+                  />
+                  <p className="font-display text-6xl text-brand-primary sm:text-7xl">
+                    <CountUp
+                      to={parseInt(stat.value.replace(/[^0-9]/g, ''), 10)}
+                      suffix={stat.value.replace(/[0-9]/g, '')}
+                    />
+                  </p>
+                  <p className="mt-1 font-display text-2xl text-brand-title sm:text-3xl">{stat.label}</p>
                 </div>
               ))}
             </div>
-            <p className="mt-8 bg-[url('/images/farm-field.webp')] bg-[length:100%_auto] bg-bottom bg-no-repeat pb-24 text-xl leading-relaxed sm:text-2xl">
+
+            <p className="mt-8 text-base leading-relaxed text-brand-text sm:text-lg">
               S.R. Export House is committed to delivering premium-quality agro products to customers worldwide,
               ensuring the highest standards of food hygiene and safety. With a focus on integrity, we meticulously
-              source, process, and export a diverse range of agricultural goods, from fresh produce to processed items.
+              source, process, and export a diverse range of agricultural goods.
             </p>
+
+            <div
+              className="mt-8 overflow-hidden rounded-xl"
+              style={{ height: 160 }}
+            >
+              <img
+                src="/images/farm-field.webp"
+                alt="Green farm field"
+                className="h-full w-full object-cover"
+                loading="lazy"
+                width={800}
+                height={300}
+              />
+            </div>
           </Reveal>
         </div>
       </section>
 
-      <section className="py-16 sm:py-20">
+      {/* ══ PRODUCTS GRID ══════════════════════════════════════ */}
+      <section className="py-20 sm:py-24">
         <div className="section-wrap">
           <Reveal>
             <SectionHeading
               title="Our Products"
-              description="Bringing farm-fresh, organic produce from local fields to global markets - quality, sustainability, and tradition in every harvest."
+              description="Bringing farm-fresh, organic produce from local fields to global markets — quality, sustainability, and tradition in every harvest."
               center
-              className="mx-auto max-w-5xl"
+              className="mx-auto max-w-4xl"
             />
           </Reveal>
 
-          <Reveal className="mt-12">
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {topProducts.map((product) => (
-                <article key={product.slug} className="group rounded-sm bg-white shadow-soft">
-                  <Link to={`/products/${product.slug}`} className="block overflow-hidden rounded-t-sm">
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {topProducts.map((product, i) => (
+              <motion.article
+                key={product.slug}
+                className="group overflow-hidden rounded-2xl bg-white"
+                style={{ boxShadow: 'var(--shadow-card)' }}
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.08 }}
+                transition={{ delay: i * 0.05, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -6, boxShadow: 'var(--shadow-card-hover)' }}
+              >
+                <Link to={`/products/${product.slug}`} className="block overflow-hidden">
+                  <div className="relative overflow-hidden">
                     <img
                       src={product.image}
                       alt={product.name}
                       loading="lazy"
-                      className="h-64 w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                      className="h-56 w-full object-cover transition duration-500 group-hover:scale-[1.06]"
                       width={500}
                       height={500}
                     />
-                  </Link>
-                  <div className="px-5 pb-6 pt-4 text-center">
-                    <h3 className="font-display text-4xl">{product.name}</h3>
-                    <p className="mt-2 text-xl text-brand-text">Our Products</p>
-                    <Link
-                      to={`/products/${product.slug}`}
-                      className="mt-3 inline-flex text-sm font-bold uppercase tracking-wide text-brand-primary transition hover:text-brand-dark"
-                    >
-                      Read More
-                    </Link>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
                   </div>
-                </article>
-              ))}
-            </div>
-          </Reveal>
+                </Link>
 
-          <div className="mt-8 text-center">
+                <div className="px-5 pb-6 pt-4 text-center">
+                  <span className="badge-green mb-2">
+                    {product.category}
+                  </span>
+                  <h3 className="mt-2 font-display text-2xl leading-tight sm:text-3xl">{product.name}</h3>
+                  <p className="mt-2 text-sm text-brand-text sm:text-base">{product.shortDescription}</p>
+                  <Link
+                    to={`/products/${product.slug}`}
+                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold uppercase tracking-wide text-brand-primary transition hover:text-brand-primary-dark"
+                  >
+                    Read More
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+
+          <div className="mt-10 text-center">
             <Link to="/our-products" className="cta-btn">
               View All Products
             </Link>
@@ -211,49 +408,85 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="pb-14 pt-4 sm:pb-16">
+      {/* ══ WHY CHOOSE US ══════════════════════════════════════ */}
+      <section className="pb-16 pt-4 sm:pb-20">
         <div className="section-wrap grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <Reveal>
-            <img
-              src="/images/why-choose.jpg"
-              alt="Assorted spices in wooden spoons"
-              loading="lazy"
-              className="w-full rounded-sm object-cover shadow-soft"
-              width={1500}
-              height={1001}
-            />
+          <Reveal direction="left">
+            <div className="group relative overflow-hidden rounded-2xl shadow-card">
+              <img
+                src="/images/why-choose.jpg"
+                alt="Assorted spices in wooden spoons"
+                loading="lazy"
+                className="w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+                width={1500}
+                height={1001}
+              />
+            </div>
           </Reveal>
+
           <Reveal delay={0.08}>
             <SectionHeading
               title="Why Choose Us?"
-              description="We ensure every product meets stringent quality standards through rigorous testing, careful sourcing, and sustainable practices, delivering only the freshest, purest, and most flavorful agro products worldwide."
+              description="We ensure every product meets stringent quality standards through rigorous testing, careful sourcing, and sustainable practices."
             />
-            <p className="mt-5 text-xl leading-relaxed sm:text-2xl">
+            <p className="mt-5 text-base leading-relaxed text-brand-text sm:text-lg">
               We partner with dedicated farmers who follow responsible agricultural practices, promoting fair trade,
               environmental sustainability, and community empowerment while providing premium-quality spices, rice, and
               fresh produce globally.
             </p>
-          </Reveal>
-        </div>
-      </section>
 
-      <section className="bg-brand-dark py-16 sm:py-20">
-        <div className="section-wrap">
-          <Reveal>
-            <div className="grid gap-8 lg:grid-cols-3">
-              {missionCards.map((card, index) => (
-                <article key={card.title} className="rounded-sm border border-white/10 bg-black/25 p-8 text-white shadow-soft">
-                  <p className="font-display text-7xl leading-none text-white/90">{index + 1}.</p>
-                  <h3 className="mt-3 font-display text-5xl text-white">{card.title}</h3>
-                  <p className="mt-5 text-xl leading-relaxed text-white/85 sm:text-2xl">{card.body}</p>
-                </article>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {[
+                { icon: Leaf, label: 'Farm-fresh sourcing' },
+                { icon: Shield, label: 'Strict quality control' },
+                { icon: Globe, label: 'Global reach, local roots' },
+                { icon: Star, label: '150+ satisfied clients' },
+              ].map(({ icon: Icon, label }) => (
+                <div key={label} className="flex items-center gap-3 rounded-xl bg-brand-muted px-4 py-3">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-primary/10 text-brand-primary">
+                    <Icon className="h-4 w-4" />
+                  </span>
+                  <span className="text-sm font-semibold text-brand-title">{label}</span>
+                </div>
               ))}
             </div>
           </Reveal>
         </div>
       </section>
 
-      <section className="py-16 sm:py-20">
+      {/* ══ MISSION / VISION / VALUES ═════════════════════════ */}
+      <section className="section-dark py-20 sm:py-24">
+        <div className="section-wrap">
+          <Reveal>
+            <div className="grid gap-6 lg:grid-cols-3">
+              {missionCards.map((card, index) => (
+                <motion.article
+                  key={card.title}
+                  className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-8 text-white backdrop-blur-sm"
+                  initial={{ opacity: 0, y: 32 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={{ delay: index * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={{ borderColor: 'rgba(251,188,52,0.3)', backgroundColor: 'rgba(255,255,255,0.08)' }}
+                >
+                  {/* Gold top accent on hover */}
+                  <div
+                    className="absolute inset-x-0 top-0 h-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    style={{ background: 'linear-gradient(90deg, #235130, #fbbc34)' }}
+                  />
+
+                  <p className="font-display text-6xl leading-none text-white/20">{index + 1}.</p>
+                  <h3 className="mt-3 font-display text-4xl text-white sm:text-5xl">{card.title}</h3>
+                  <p className="mt-5 text-base leading-relaxed text-white/70 sm:text-lg">{card.body}</p>
+                </motion.article>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ══ FEATURE CARDS ══════════════════════════════════════ */}
+      <section className="py-20 sm:py-24">
         <div className="section-wrap">
           <Reveal>
             <SectionHeading
@@ -265,16 +498,36 @@ export function HomePage() {
             />
           </Reveal>
 
-          <Reveal className="mt-12">
-            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-              {featureCards.map((feature) => (
-                <article key={feature.title} className="rounded-sm bg-white p-7 shadow-soft">
-                  <h3 className="text-center font-display text-5xl">{feature.title}</h3>
-                  <p className="mt-4 text-center text-xl leading-relaxed">{feature.body}</p>
-                </article>
-              ))}
-            </div>
-          </Reveal>
+          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {featureCards.map((feature, i) => {
+              const Icon = featureIcons[i] ?? Leaf
+              return (
+                <motion.article
+                  key={feature.title}
+                  className="group relative overflow-hidden rounded-2xl bg-white p-7"
+                  style={{ boxShadow: 'var(--shadow-card)' }}
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.1 }}
+                  transition={{ delay: i * 0.08, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={{ y: -5 }}
+                >
+                  {/* Gradient top bar */}
+                  <div
+                    className="absolute inset-x-0 top-0 h-0.5"
+                    style={{ background: 'linear-gradient(90deg, #235130, #fbbc34)' }}
+                  />
+
+                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-primary/8 text-brand-primary transition-colors duration-300 group-hover:bg-brand-primary group-hover:text-white">
+                    <Icon className="h-6 w-6" />
+                  </div>
+
+                  <h3 className="font-display text-2xl leading-tight sm:text-3xl">{feature.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-brand-text sm:text-base">{feature.body}</p>
+                </motion.article>
+              )
+            })}
+          </div>
         </div>
       </section>
     </>

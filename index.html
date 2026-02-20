@@ -1,69 +1,146 @@
 <!doctype html>
-<html lang="en-US">
+<html lang="en-IN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- ── Security Headers ── -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-DNS-Prefetch-Control" content="on" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- ── Theme & PWA ── -->
+    <meta name="theme-color" content="#235130" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="apple-touch-icon" href="/images/logo-220x65.webp" />
+
+    <!-- ── Primary SEO ── -->
     <meta
       name="description"
-      content="A family-run export business dedicated to delivering high-quality agro products, spices, rice, mango pulp, and allied products to global markets."
+      content="S.R Export House — a family-run export business delivering premium agro products, spices, rice, mango pulp, essential oils, and allied products to global markets since 2024."
     />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="author" content="S.R Export House" />
+    <meta name="keywords" content="agro export india, rice export, spices export, mango pulp exporter, essential oils export, psyllium husk, export house sonipat haryana" />
 
+    <!-- ── Local & Geo SEO ── -->
+    <meta name="geo.region" content="IN-HR" />
+    <meta name="geo.placename" content="Sonipat, Haryana, India" />
+    <meta name="geo.position" content="28.9931;77.0151" />
+    <meta name="ICBM" content="28.9931, 77.0151" />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="7 days" />
+
+    <!-- ── Canonical ── -->
     <link rel="canonical" href="https://srexporthouse.com/" />
-    <link rel="icon" type="image/webp" href="/images/logo-220x65.webp" />
-    <link rel="preload" as="image" href="/images/hero-rice.png" />
-    <link rel="preload" as="image" href="/images/hero-chili.png" />
 
+    <!-- ── Favicon ── -->
+    <link rel="icon" type="image/webp" href="/images/logo-220x65.webp" />
+    <link rel="shortcut icon" href="/images/logo-220x65.webp" />
+
+    <!-- ── Font preconnect (performance) ── -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+
+    <!-- ── Critical image preloads ── -->
+    <link rel="preload" as="image" href="/images/hero-rice.png" fetchpriority="high" />
+    <link rel="preload" as="image" href="/images/hero-chili.png" />
+    <link rel="preload" as="image" href="/images/logo.webp" fetchpriority="high" />
+
+    <!-- ── Open Graph ── -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="S.R Export House" />
     <meta property="og:url" content="https://srexporthouse.com/" />
-    <meta property="og:title" content="Home - S.R Export House" />
+    <meta property="og:title" content="S.R Export House — Premium Agro Products Exporter, India" />
     <meta
       property="og:description"
-      content="A family-run export business dedicated to delivering high-quality agro products to international markets."
+      content="Family-run agro export business specialising in rice, spices, mango pulp, essential oils & more. Serving global markets with integrity since 2024."
     />
-    <meta property="og:image" content="/images/welcome-rice.webp" />
+    <meta property="og:image" content="https://srexporthouse.com/images/welcome-rice.webp" />
+    <meta property="og:image:alt" content="Premium rice grains — S.R Export House" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_IN" />
 
+    <!-- ── Twitter Card ── -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Home - S.R Export House" />
+    <meta name="twitter:title" content="S.R Export House — Premium Agro Products Exporter" />
     <meta
       name="twitter:description"
-      content="Premium agro exports including rice, spices, mango pulp, essential oils, and more."
+      content="Premium agro exports from India: rice, spices, mango pulp, essential oils, psyllium husk & more."
     />
-    <meta name="twitter:image" content="/images/welcome-rice.webp" />
+    <meta name="twitter:image" content="https://srexporthouse.com/images/welcome-rice.webp" />
+    <meta name="twitter:image:alt" content="S.R Export House — premium rice and agro products" />
 
+    <!-- ── JSON-LD Structured Data ── -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@graph": [
           {
-            "@type": "Organization",
+            "@type": ["Organization", "LocalBusiness"],
+            "@id": "https://srexporthouse.com/#organization",
             "name": "S.R Export House",
+            "alternateName": "SR Export House",
             "url": "https://srexporthouse.com/",
-            "logo": "https://srexporthouse.com/wp-content/uploads/2025/04/logo.webp",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://srexporthouse.com/images/logo.webp",
+              "width": 212,
+              "height": 72
+            },
+            "description": "A family-run export business delivering premium agro products, spices, rice, mango pulp, and allied products to global markets.",
+            "foundingDate": "2024",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Sonipat",
+              "addressRegion": "Haryana",
+              "addressCountry": "IN",
+              "postalCode": "131001"
+            },
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+91-70420-88772",
+              "contactType": "customer service",
+              "email": "export@srexporthouse.com",
+              "availableLanguage": ["English", "Hindi"]
+            },
             "sameAs": [
               "https://www.instagram.com/s.r.exporthouse",
               "https://www.linkedin.com/company/s-r-export-house/"
-            ]
+            ],
+            "areaServed": ["Worldwide"],
+            "knowsAbout": ["Agro Export", "Rice Export", "Spices Export", "Mango Pulp", "Essential Oils", "Psyllium Husk"]
           },
           {
             "@type": "WebSite",
+            "@id": "https://srexporthouse.com/#website",
             "name": "S.R Export House",
-            "url": "https://srexporthouse.com/"
+            "url": "https://srexporthouse.com/",
+            "publisher": { "@id": "https://srexporthouse.com/#organization" },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://srexporthouse.com/our-products?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
           },
           {
             "@type": "WebPage",
-            "name": "Home - S.R Export House",
+            "@id": "https://srexporthouse.com/#webpage",
+            "name": "Home — S.R Export House",
             "url": "https://srexporthouse.com/",
+            "isPartOf": { "@id": "https://srexporthouse.com/#website" },
+            "about": { "@id": "https://srexporthouse.com/#organization" },
             "description": "A family-run export business dedicated to delivering high-quality agro products to global markets."
           }
         ]
       }
     </script>
 
-    <title>Home - S.R Export House</title>
+    <title>S.R Export House — Premium Agro Products Exporter, India</title>
   </head>
   <body>
     <div id="root"></div>
