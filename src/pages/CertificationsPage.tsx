@@ -44,7 +44,7 @@ export function CertificationsPage() {
       {/* HERO */}
       <section className="relative overflow-hidden py-0 text-white">
         <img src="/images/farm-field.webp" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" loading="eager" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/88 via-black/70 to-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/85 to-black/70" />
         <div className="pointer-events-none absolute inset-0 bg-grain opacity-20" aria-hidden />
 
         {/* Decorative rings */}
@@ -56,18 +56,14 @@ export function CertificationsPage() {
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-gold/40 bg-brand-gold/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-brand-gold backdrop-blur-sm">
               <ShieldCheck className="h-3 w-3" /> Certified & Compliant
             </div>
-            <h1 className="font-display text-5xl leading-tight text-white sm:text-6xl lg:text-7xl">
+            <h1 className="font-display text-5xl leading-tight text-white sm:text-6xl lg:text-7xl drop-shadow-xl">
               Our<br />
               <span className="bg-gradient-to-r from-brand-gold to-yellow-300 bg-clip-text text-transparent">Certifications</span>
             </h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/75 sm:text-xl">
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/90 sm:text-xl drop-shadow-md">
               Certified, compliant, and committed to transparent global trade standards. Every document reflects our dedication to quality.
             </p>
-            <nav className="mt-5 flex items-center gap-3 text-sm font-semibold uppercase tracking-wide text-white/60">
-              <Link to="/" className="transition hover:text-brand-gold">Home</Link>
-              <span>/</span>
-              <span className="text-white/85">Our Certifications</span>
-            </nav>
+
           </Reveal>
         </div>
       </section>
