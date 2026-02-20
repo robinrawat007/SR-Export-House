@@ -46,14 +46,35 @@ export type MissionCard = {
   body: string
 }
 
+export type AboutPillar = {
+  title: string
+  body: string
+}
+
+export type ShowcaseImage = {
+  src: string
+  alt: string
+}
+
+export type FaqItem = {
+  question: string
+  answer: string
+}
+
+export type CertificateItem = {
+  title: string
+  issuer: string
+  image: string
+}
+
 export const companyInfo = {
   name: 'S.R Export House',
   tagline:
     'A family-run export business started in the memory of our beloved Grandfather, Late Shri Sahaj Ram.',
-  whatsappNumber: '7206980178',
-  email: 'info@srexporthouse.com',
-  phone: '+91 72069 80178',
-  address: 'India',
+  whatsappNumber: '917042088772',
+  email: 'export@srexporthouse.com',
+  phone: '+91 70420 88772',
+  address: 'Sonipat, Haryana, India',
   social: {
     instagram: 'https://www.instagram.com/s.r.exporthouse?igsh=ZGl6c3YwaDh0dHFs',
     linkedin: 'https://www.linkedin.com/company/s-r-export-house/',
@@ -266,4 +287,90 @@ export const featureCards: FeatureCard[] = [
 export const trustStats = [
   { label: 'Our Quality', value: '100%' },
   { label: 'Trusted by Clients', value: '150+' },
+]
+
+export const aboutPillars: AboutPillar[] = [
+  {
+    title: 'S.R. Export House',
+    body: 'S.R. Export House is a family-run business founded in 2024 in loving memory of our grandfather, the late Shri Sahaj Ram. Built on his vision and values, we are passionate about connecting local farmers with international markets and ensuring that our products meet the highest standards of quality, freshness, and sustainability.',
+  },
+  {
+    title: 'Integrity and Transparency',
+    body: 'We believe in conducting business with honesty and openness. From sourcing fresh, organic produce to ensuring on-time deliveries, we uphold the highest standards of integrity in every transaction. Our customers trust that our processes are clear, fair, and built on long-term relationships.',
+  },
+  {
+    title: 'Sustainability and Community',
+    body: 'As a family-run business deeply rooted in agriculture, we are committed to sustainable farming practices that benefit both the environment and local farmers. By empowering our farming partners, we continue promoting eco-friendly practices across the export chain.',
+  },
+]
+
+export const aboutGallery: ShowcaseImage[] = [
+  { src: '/images/product-tiles.jpg', alt: 'Tiles and marbles interior display' },
+  { src: '/images/product-wires.jpg', alt: 'Colorful industrial wires and cables' },
+  { src: '/images/product-dried.jpg', alt: 'Dried and dehydrated fruit assortment' },
+  { src: '/images/quality-rice.webp', alt: 'Premium rice grains in a bowl' },
+  { src: '/images/product-husk.jpg', alt: 'Psyllium husk in wooden bowl' },
+]
+
+export const exportImpactStats = [
+  { value: '2024', label: 'Founding Year' },
+  { value: '150', label: 'Trust By Clients' },
+  { value: '2', label: 'Offices' },
+  { value: '10', label: 'Export Countries Served' },
+]
+
+export const contactFaq: FaqItem[] = [
+  {
+    question: 'What types of products do you export?',
+    answer:
+      'We specialize in high-quality fresh and frozen agro products, including fruits, vegetables, and other organic agricultural commodities. Our products are sourced directly from trusted local farmers, ensuring they meet the highest standards of quality and freshness.',
+  },
+  {
+    question: 'How do you ensure the quality of your products?',
+    answer:
+      'At S.R. Export House, we follow strict quality control at every stage, from sourcing and processing to packaging and delivery. Our team performs detailed checks to ensure all products meet international standards.',
+  },
+  {
+    question: 'Where do you export your products?',
+    answer:
+      'We export to global markets across North America, Europe, the Middle East, and Southeast Asia, helping connect local producers with international buyers.',
+  },
+  {
+    question: 'How do you support local farmers?',
+    answer:
+      'We build long-term partnerships with local farmers through fair sourcing practices, transparent pricing, and practical support that helps improve consistency, income stability, and sustainable production.',
+  },
+  {
+    question: 'What is your approach to sustainability?',
+    answer:
+      'Sustainability is central to our operations. We promote eco-friendly farming, efficient processing, and lower-impact logistics so our export model supports both current demand and future generations.',
+  },
+]
+
+export const certificateItems: CertificateItem[] = [
+  {
+    title: 'GST Registration Certificate',
+    issuer: 'Government of India',
+    image: '/images/certificates/certificate-1.jpg',
+  },
+  {
+    title: 'Spices Board Registration',
+    issuer: 'Spices Board India',
+    image: '/images/certificates/certificate-2.jpg',
+  },
+  {
+    title: 'Importer Exporter Code',
+    issuer: 'Directorate General of Foreign Trade',
+    image: '/images/certificates/certificate-3.jpg',
+  },
+  {
+    title: 'APEDA Membership',
+    issuer: 'APEDA India',
+    image: '/images/certificates/certificate-4.jpg',
+  },
+  {
+    title: 'FSSAI License',
+    issuer: 'Food Safety and Standards Authority of India',
+    image: '/images/certificates/certificate-5.jpg',
+  },
 ]

@@ -38,7 +38,7 @@ export function Footer() {
             </li>
             <li>
               <Link to="/our-certifications" className="transition hover:text-brand-primary">
-                Our Certificate
+                Our Certifications
               </Link>
             </li>
             <li>
