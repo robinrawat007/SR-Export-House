@@ -125,10 +125,12 @@ export function Navbar() {
                       )}
                     </NavLink>
 
-                    {/* Dropdown — The key fix: pt-3 on the outer div creates an invisible bridge
-                        between the nav link and dropdown, preventing the gap-triggered close. */}
+                    {/* Dropdown bridge — Fix: Adding a larger invisible bridge between link and dropdown
+                        by increasing pt-4 and using a negative margin if needed, 
+                        or simply ensuring the bridge is solid. */}
                     {item.children ? (
-                      <div className="pointer-events-none invisible absolute left-0 top-full w-[340px] pt-3 opacity-0 transition-all duration-200 group-hover/nav:pointer-events-auto group-hover/nav:visible group-hover/nav:opacity-100">
+                      <div className="pointer-events-none invisible absolute left-0 top-full w-[340px] pt-4 opacity-0 transition-all duration-200 group-hover/nav:pointer-events-auto group-hover/nav:visible group-hover/nav:opacity-100">
+
                         <div className="relative rounded-2xl border border-black/8 bg-white/98 p-3 shadow-[0_12px_40px_rgba(0,0,0,0.14)] backdrop-blur-xl">
                           {/* Caret */}
                           <div className="absolute -top-1.5 left-7 h-3 w-3 rotate-45 border-l border-t border-black/8 bg-white" />

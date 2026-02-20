@@ -42,8 +42,7 @@ export function Footer() {
                 alt="S.R Export House"
                 width={212}
                 height={72}
-                className="h-auto w-[160px]"
-                style={{ filter: 'brightness(0) invert(1)' }}
+                className="h-auto w-[180px] brightness-0 invert"
                 loading="lazy"
               />
             </Link>

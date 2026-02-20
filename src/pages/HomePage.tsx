@@ -44,34 +44,36 @@ function CountUp({ to, suffix = '' }: { to: number; suffix?: string }) {
 }
 
 /* ─── Ticker Band ───────────────────────────────────── */
-const tickerItems = [
-  '🌾 Premium Rice Export',
-  '🌶️ Aromatic Spices',
-  '🥭 Mango Pulp',
-  '🫙 Essential Oils',
-  '🌿 Psyllium Husk',
-  '☕ Premium Coffee',
-  '🏭 Wires & Cables',
-  '🪨 Tiles & Marbles',
-  '🌱 100% Quality',
-  '🌍 10+ Countries Served',
-  '⭐ 150+ Trusted Clients',
-]
 
+
+/* ─── Ticker Band ───────────────────────────────────── */
 function TickerBand() {
-  const items = [...tickerItems, ...tickerItems]
+  const tickerProducts = products.slice(0, 10)
+  const items = [...tickerProducts, ...tickerProducts]
+
   return (
-    <div className="overflow-hidden border-y border-white/10 bg-brand-primary/90 py-3" aria-hidden>
-      <div className="ticker-track flex items-center">
-        {items.map((item, i) => (
-          <span key={i} className="mx-8 shrink-0 text-xs font-bold uppercase tracking-[0.12em] text-white/85">
-            {item}
-          </span>
+    <div className="group relative overflow-hidden border-y border-white/10 bg-brand-primary py-4" aria-hidden>
+      {/* Subtle overlay gradients for fade edges */}
+      <div className="absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-brand-primary to-transparent" />
+      <div className="absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-brand-primary to-transparent" />
+
+      <div className="ticker-track flex items-center whitespace-nowrap">
+        {items.map((product, i) => (
+          <div key={`${product.slug}-${i}`} className="mx-10 flex items-center gap-4 shrink-0">
+            <div className="h-10 w-10 overflow-hidden rounded-full border border-white/20 bg-white/10">
+              <img src={product.image} alt="" className="h-full w-full object-cover" />
+            </div>
+            <span className="text-xs font-bold uppercase tracking-[0.15em] text-white/90">
+              {product.name}
+            </span>
+            <div className="h-1.5 w-1.5 rounded-full bg-brand-gold/60 mx-2" />
+          </div>
         ))}
       </div>
     </div>
   )
 }
+
 
 const featureIcons = [Leaf, Globe, Shield, TrendingUp]
 
