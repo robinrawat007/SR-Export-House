@@ -73,7 +73,7 @@ export function Navbar() {
           'fixed inset-x-0 top-0 z-50 transition-all duration-400',
           isScrolled
             ? 'glass-nav py-3 shadow-nav'
-            : 'border-b border-transparent bg-white/90 py-5 backdrop-blur-md',
+            : 'border-b border-transparent bg-white/95 py-4 backdrop-blur-md',
         )}
         animate={{ y: showHeader ? 0 : -100 }}
         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
@@ -89,7 +89,7 @@ export function Navbar() {
             <img
               src="/images/logo.webp"
               alt="S.R Export House logo"
-              className="h-12 w-auto transition duration-300 group-hover:opacity-85 sm:h-14"
+              className="h-11 w-auto transition duration-300 group-hover:opacity-80 sm:h-14"
               width={212}
               height={72}
             />
@@ -97,66 +97,71 @@ export function Navbar() {
 
           {/* Desktop nav */}
           <nav aria-label="Main navigation" className="hidden lg:block">
-            <ul className="flex items-center gap-8 text-sm font-bold uppercase tracking-wide text-[#1a2018]">
+            <ul className="flex items-center gap-7 text-[13px] font-bold uppercase tracking-wider text-brand-title">
               {navItems.map((item) => {
                 const active = isNavItemActive(item, pathname)
                 return (
-                  <li key={item.label} className="group relative">
+                  <li key={item.label} className="group/nav relative">
                     <NavLink
                       to={item.to}
                       className={clsx(
-                        'relative inline-flex items-center gap-1.5 py-1 transition-colors duration-200 hover:text-brand-primary',
+                        'relative inline-flex items-center gap-1 py-2 transition-colors duration-200 hover:text-brand-primary',
                         active ? 'text-brand-primary' : '',
                       )}
                     >
                       <span>{item.label}</span>
-                      {item.children ? <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:rotate-180" /> : null}
+                      {item.children ? (
+                        <ChevronDown className="h-3.5 w-3.5 transition-transform duration-300 group-hover/nav:rotate-180" />
+                      ) : null}
 
                       {/* Active underline */}
                       {active && (
                         <motion.span
                           layoutId="nav-active"
-                          className="absolute -bottom-1 inset-x-0 h-0.5 rounded-full"
+                          className="absolute -bottom-0.5 inset-x-0 h-0.5 rounded-full"
                           style={{ background: 'linear-gradient(90deg, #235130, #fbbc34)' }}
                           transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                         />
                       )}
                     </NavLink>
 
-                    {/* Dropdown */}
+                    {/* Dropdown — The key fix: pt-3 on the outer div creates an invisible bridge
+                        between the nav link and dropdown, preventing the gap-triggered close. */}
                     {item.children ? (
-                      <div className="pointer-events-none invisible absolute left-0 top-full mt-3 w-[320px] rounded-xl border border-black/8 bg-white/95 p-3 opacity-0 shadow-[0_8px_32px_rgba(0,0,0,0.12)] backdrop-blur-xl transition-all duration-200 group-hover:pointer-events-auto group-hover:visible group-hover:opacity-100">
-                        {/* Dropdown caret */}
-                        <div className="absolute -top-2 left-6 h-0 w-0 border-x-8 border-b-8 border-x-transparent border-b-white/95" />
+                      <div className="pointer-events-none invisible absolute left-0 top-full w-[340px] pt-3 opacity-0 transition-all duration-200 group-hover/nav:pointer-events-auto group-hover/nav:visible group-hover/nav:opacity-100">
+                        <div className="relative rounded-2xl border border-black/8 bg-white/98 p-3 shadow-[0_12px_40px_rgba(0,0,0,0.14)] backdrop-blur-xl">
+                          {/* Caret */}
+                          <div className="absolute -top-1.5 left-7 h-3 w-3 rotate-45 border-l border-t border-black/8 bg-white" />
 
-                        <p className="mb-2 px-2 text-[10px] font-bold uppercase tracking-widest text-brand-text/60">
-                          Browse Products
-                        </p>
-                        <ul className="grid gap-0.5">
-                          {item.children.map((child) => {
-                            const Icon = categoryIcons[child.label] ?? Leaf
-                            return (
-                              <li key={child.label}>
-                                <NavLink
-                                  className={({ isActive }) =>
-                                    clsx(
-                                      'group/item flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold normal-case tracking-normal transition-colors duration-150',
-                                      isActive
-                                        ? 'bg-brand-primary/8 text-brand-primary'
-                                        : 'text-brand-title hover:bg-brand-muted hover:text-brand-primary',
-                                    )
-                                  }
-                                  to={child.to}
-                                >
-                                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-brand-muted text-brand-primary transition-colors group-hover/item:bg-brand-primary group-hover/item:text-white">
-                                    <Icon className="h-3.5 w-3.5" />
-                                  </span>
-                                  {child.label}
-                                </NavLink>
-                              </li>
-                            )
-                          })}
-                        </ul>
+                          <p className="mb-2 px-2 text-[10px] font-bold uppercase tracking-widest text-brand-text/50">
+                            Browse Products
+                          </p>
+                          <ul className="grid gap-0.5">
+                            {item.children.map((child) => {
+                              const Icon = categoryIcons[child.label] ?? Leaf
+                              return (
+                                <li key={child.label}>
+                                  <NavLink
+                                    className={({ isActive }) =>
+                                      clsx(
+                                        'group/item flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-semibold normal-case tracking-normal transition-colors duration-150',
+                                        isActive
+                                          ? 'bg-brand-primary/8 text-brand-primary'
+                                          : 'text-brand-title hover:bg-brand-muted hover:text-brand-primary',
+                                      )
+                                    }
+                                    to={child.to}
+                                  >
+                                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-muted text-brand-primary transition-colors group-hover/item:bg-brand-primary group-hover/item:text-white">
+                                      <Icon className="h-3.5 w-3.5" />
+                                    </span>
+                                    {child.label}
+                                  </NavLink>
+                                </li>
+                              )
+                            })}
+                          </ul>
+                        </div>
                       </div>
                     ) : null}
                   </li>
@@ -169,7 +174,7 @@ export function Navbar() {
           <div className="flex items-center gap-3">
             <Link
               to="/contact-us"
-              className="hidden rounded-lg bg-brand-primary px-4 py-2 text-xs font-bold uppercase tracking-wide text-white shadow-glow-sm transition hover:-translate-y-0.5 hover:shadow-glow-green xl:inline-flex"
+              className="hidden rounded-lg bg-brand-primary px-5 py-2.5 text-xs font-bold uppercase tracking-wide text-white shadow-glow-sm transition hover:-translate-y-0.5 hover:shadow-glow-green xl:inline-flex"
             >
               Get in Touch
             </Link>
@@ -225,21 +230,26 @@ export function Navbar() {
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             aria-label="Mobile navigation"
           >
-            {/* Gradient top */}
             <div
               className="absolute inset-x-0 top-0 h-1"
               style={{ background: 'linear-gradient(90deg, #235130, #fbbc34)' }}
             />
 
             <div className="mt-2 flex items-center justify-between">
-              <img src="/images/logo-220x65.webp" alt="S.R Export House" className="h-10 w-auto" width={220} height={65} />
+              <img
+                src="/images/logo.webp"
+                alt="S.R Export House"
+                className="h-10 w-auto"
+                width={212}
+                height={72}
+              />
               <button
                 type="button"
                 aria-label="Close menu"
                 className="flex h-9 w-9 items-center justify-center rounded-lg border border-black/10 text-brand-title"
                 onClick={closeMobileMenu}
               >
-                <X className="h-4.5 w-4.5" />
+                <X className="h-5 w-5" />
               </button>
             </div>
 
@@ -267,7 +277,7 @@ export function Navbar() {
                             onClick={() => setMobileProductsOpen((prev) => !prev)}
                           >
                             <ChevronDown
-                              className={clsx('h-4 w-4 transition-transform', mobileProductsOpen ? 'rotate-180' : '')}
+                              className={clsx('h-4 w-4 transition-transform duration-300', mobileProductsOpen ? 'rotate-180' : '')}
                             />
                           </button>
                         </div>
@@ -326,12 +336,12 @@ export function Navbar() {
                 ))}
               </ul>
 
-              <div className="mt-6 grid gap-2">
+              <div className="mt-6">
                 <a
-                  href={`https://api.whatsapp.com/send?phone=917042088772&text=Hello%20S.R.%20Export%20House`}
+                  href="https://api.whatsapp.com/send?phone=917042088772&text=Hello%20S.R.%20Export%20House"
                   target="_blank"
                   rel="noreferrer"
-                  className="cta-btn w-full text-center"
+                  className="cta-btn w-full justify-center"
                   onClick={closeMobileMenu}
                 >
                   WhatsApp Us
