@@ -7,11 +7,15 @@
     <!-- ── Security Headers ── -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="X-DNS-Prefetch-Control" content="on" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()" />
+    <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin-allow-popups" />
 
     <!-- ── Theme & PWA ── -->
-    <meta name="theme-color" content="#235130" />
+    <meta name="theme-color" content="#235130" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="apple-touch-icon" href="/images/logo-220x65.webp" />
@@ -40,14 +44,9 @@
     <link rel="icon" type="image/webp" href="/images/logo-220x65.webp" />
     <link rel="shortcut icon" href="/images/logo-220x65.webp" />
 
-    <!-- ── Font preconnect (performance) ── -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-
     <!-- ── Critical image preloads ── -->
     <link rel="preload" as="image" href="/images/hero-rice.png" fetchpriority="high" />
-    <link rel="preload" as="image" href="/images/hero-chili.png" />
+    <link rel="preload" as="image" href="/images/hero-chili.png" fetchpriority="high" />
     <link rel="preload" as="image" href="/images/logo.webp" fetchpriority="high" />
 
     <!-- ── Open Graph ── -->
@@ -57,7 +56,7 @@
     <meta property="og:title" content="S.R Export House — Premium Agro Products Exporter, India" />
     <meta
       property="og:description"
-      content="Family-run agro export business specialising in rice, spices, mango pulp, essential oils & more. Serving global markets with integrity since 2024."
+      content="Family-run agro export business specialising in rice, spices, mango pulp, essential oils &amp; more. Serving global markets with integrity since 2024."
     />
     <meta property="og:image" content="https://srexporthouse.com/images/welcome-rice.webp" />
     <meta property="og:image:alt" content="Premium rice grains — S.R Export House" />
@@ -70,7 +69,7 @@
     <meta name="twitter:title" content="S.R Export House — Premium Agro Products Exporter" />
     <meta
       name="twitter:description"
-      content="Premium agro exports from India: rice, spices, mango pulp, essential oils, psyllium husk & more."
+      content="Premium agro exports from India: rice, spices, mango pulp, essential oils, psyllium husk &amp; more."
     />
     <meta name="twitter:image" content="https://srexporthouse.com/images/welcome-rice.webp" />
     <meta name="twitter:image:alt" content="S.R Export House — premium rice and agro products" />

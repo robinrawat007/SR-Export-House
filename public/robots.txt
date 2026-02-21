@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /not-found
 
 Sitemap: https://srexporthouse.com/sitemap.xml

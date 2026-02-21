@@ -16,11 +16,50 @@ const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then((module) => 
 
 function RouteLoadingFallback() {
   return (
-    <div className="section-wrap py-24 text-center">
-      <p className="text-lg font-semibold text-brand-text">Loading...</p>
+    <div
+      className="flex min-h-[60vh] flex-col items-center justify-center gap-5"
+      role="status"
+      aria-label="Loading page…"
+    >
+      {/* Brand logo shimmer */}
+      <div className="relative flex h-14 w-44 overflow-hidden rounded-lg bg-brand-primary/8">
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(90deg, transparent 25%, rgba(35,81,48,0.08) 50%, transparent 75%)',
+            backgroundSize: '200% 100%',
+            animation: 'shimmer 1.5s linear infinite',
+          }}
+        />
+      </div>
+      {/* Content lines shimmer */}
+      <div className="flex w-full max-w-xs flex-col items-center gap-3">
+        <div className="relative h-3 w-56 overflow-hidden rounded-full bg-brand-primary/6">
+          <div
+            className="absolute inset-0"
+            style={{
+              background: 'linear-gradient(90deg, transparent 25%, rgba(35,81,48,0.08) 50%, transparent 75%)',
+              backgroundSize: '200% 100%',
+              animation: 'shimmer 1.5s linear infinite 0.1s',
+            }}
+          />
+        </div>
+        <div className="relative h-3 w-40 overflow-hidden rounded-full bg-brand-primary/6">
+          <div
+            className="absolute inset-0"
+            style={{
+              background: 'linear-gradient(90deg, transparent 25%, rgba(35,81,48,0.08) 50%, transparent 75%)',
+              backgroundSize: '200% 100%',
+              animation: 'shimmer 1.5s linear infinite 0.2s',
+            }}
+          />
+        </div>
+      </div>
+      <span className="sr-only">Loading…</span>
     </div>
   )
 }
+
 
 function App() {
   return (

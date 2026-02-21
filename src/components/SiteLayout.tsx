@@ -23,10 +23,11 @@ function PageProgressBar() {
 export function SiteLayout() {
   const location = useLocation()
   useEffect(() => {
-    const t = setTimeout(() => {
+    let raf: number
+    raf = requestAnimationFrame(() => {
       window.scrollTo({ top: 0, behavior: 'instant' })
-    }, 100)
-    return () => clearTimeout(t)
+    })
+    return () => cancelAnimationFrame(raf)
   }, [location.pathname])
 
   return (

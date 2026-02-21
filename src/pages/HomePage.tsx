@@ -44,9 +44,6 @@ function CountUp({ to, suffix = '' }: { to: number; suffix?: string }) {
 }
 
 /* ─── Ticker Band ───────────────────────────────────── */
-
-
-/* ─── Ticker Band ───────────────────────────────────── */
 function TickerBand() {
   const tickerProducts = products.slice(0, 10)
   const items = [...tickerProducts, ...tickerProducts]
